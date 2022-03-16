@@ -1,0 +1,28 @@
+{
+    "name": "cloocus-debezium_connector-007",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "database.hostname": "dltest003.postgres.database.azure.com",
+        "database.port": "5432",
+        "database.user": "dljstest@dltest003",
+        "database.password": "qlqjstjfwjd123!",
+        "database.dbname": "postgres",
+        "database.server.name": "dltest003",
+        "plugin.name": "wal2json",
+	"transforms": "Reroute",
+	"transforms.Reroute.type": "io.debezium.transforms.ByLogicalTableRouter",
+	"transforms.Reroute.topic.regex": "(.*)",
+	"transforms.Reroute.topic.replacement": "debezium_all_topic",
+        "topic.creation.default.replication.factor": 3,
+        "topic.creation.default.partitions": 10,
+        "topic.creation.default.cleanup.policy": "compact",	
+	"topic.creation.default.compression.type": "lz4",
+	"topic.creation.groups": "cloocus",
+    	"topic.creation.cloocus.include": "(.*)",
+    	"topic.creation.cloocus.partitions": 20,
+    	"topic.creation.cloocus.cleanup.policy": "compact",
+    	"topic.creation.cloocus.delete.retention.ms": "7776000000",
+	"include.schema.changes": "true",
+	"table.include.list": "public.(a|b)_.*"
+    }
+}
